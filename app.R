@@ -3,29 +3,28 @@ library(quantmod)
 
 
 ui <- fluidPage(
-  titlePanel("Stock Data Analysis - Shiny App"),
+  titlePanel("Stock Data Technical Analysis - Shiny App"),
   
   sidebarLayout(
     sidebarPanel(
-      helpText("Please select a symbol."),
-      textInput("symb", "Enter Valid Stock Symbol:", value = "AAPL", width = NULL, placeholder = NULL),
+      textInput("symb", "Enter Valid Stock Symbol:", value = "", width = NULL, placeholder = NULL),
       checkboxInput("VOL", "Show Volume", FALSE),
-      checkboxInput("SMA20", "Show SMA(20) in Red", TRUE),
+      checkboxInput("SMA20", "Show SMA(20) in Red", FALSE),
       checkboxInput("SMA200", "Show SMA(200) in Blue", FALSE),
       checkboxInput("BB", "Show Bollinger Bands", FALSE),
-      sliderInput("integer", "Last Months Data:", min=1, max=100, value=12),
-      
-      numericInput("obs", "Number of Data to Show:", 5)
+      sliderInput("integer", "Number of Months of Data:", min=1, max=100, value=12),
+      numericInput("obs", "Last Number of Days to Show:", 5)
       
     ),
-    mainPanel(textOutput("text1"),textOutput("text2"), textOutput("text3"), plotOutput("plot"), tableOutput("view")))
+    mainPanel(textOutput("text1"), textOutput("text2"), plotOutput("plot"), tableOutput("view")))
 )
 
 server <- function(input, output) {
+  data <- ""
   output$plot <- renderPlot({
     output$text1 <- renderText({paste("Output: ", input$symb)})
     validate(
-      need(input$symb != "", "Please enter Valid Stock Symbol")
+      need(input$symb != "", "Please enter a valid stock symbol")
     )
     
     tryCatch({
@@ -55,11 +54,6 @@ server <- function(input, output) {
                   type = "line", 
                   subset = m,
                   TA = a)
-      #if(input$VOL){addVo()}
-      #if(input$SMA20){addSMA(n = 20, col = "red")} 
-    
-      #if(input$SMA200){addSMA(n = 200, col = "blue")}
-      #if(input$BB){addBBands()}
       },
     error=function(e) {
       output$text2 <- renderText({paste("")})
