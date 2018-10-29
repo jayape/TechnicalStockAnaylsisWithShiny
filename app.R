@@ -48,6 +48,7 @@ server <- function(input, output) {
     if(input$SMA20){a <- paste0(a, if(a != "") {"; "}, "addSMA(n = 20, col = 'red')")} 
     if(input$SMA200){a <- paste0(a, if(a != "") {"; "}, "addSMA(n = 200, col = 'blue')")} 
     if(input$BB){a <- paste0(a, if(a != "") {"; "}, "addBBands()")} 
+    if(a == ""){a <- list(NULL)}
     tryCatch({
       chartSeries(data, 
                   theme = chartTheme("white"), 

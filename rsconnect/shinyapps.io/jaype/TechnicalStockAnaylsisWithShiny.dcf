@@ -1,0 +1,12 @@
+name: TechnicalStockAnaylsisWithShiny
+title: TechnicalStockAnaylsisWithShiny
+username:
+account: jaype
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 541219
+bundleId: 1670298
+url: https://jaype.shinyapps.io/TechnicalStockAnaylsisWithShiny/
+when: 1540839051.74183
+asMultiple: FALSE
+asStatic: FALSE
