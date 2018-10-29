@@ -5,8 +5,8 @@ account: jaype
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 541219
-bundleId: 1670298
+bundleId: 1670431
 url: https://jaype.shinyapps.io/TechnicalStockAnaylsisWithShiny/
-when: 1540839051.74183
+when: 1540843529.52339
 asMultiple: FALSE
 asStatic: FALSE

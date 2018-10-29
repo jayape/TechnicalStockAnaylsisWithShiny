@@ -3,16 +3,17 @@ library(quantmod)
 
 
 ui <- fluidPage(
-  titlePanel("Stock Data Technical Analysis - Shiny App"),
+  titlePanel("Stock Data Technical Indicators with Shiny"),
   
   sidebarLayout(
     sidebarPanel(
       textInput("symb", "Enter Valid Stock Symbol:", value = "", width = NULL, placeholder = NULL),
       checkboxInput("VOL", "Show Volume", FALSE),
-      checkboxInput("SMA20", "Show SMA(20) in Red", FALSE),
+      checkboxInput("SMA50", "Show SMA(50) in Red", FALSE),
       checkboxInput("SMA200", "Show SMA(200) in Blue", FALSE),
       checkboxInput("BB", "Show Bollinger Bands", FALSE),
-      sliderInput("integer", "Number of Months of Data:", min=1, max=100, value=12),
+      checkboxInput("MACD", "Show Moving Average Convergence Divergence (MACD)", FALSE),
+      sliderInput("integer", "Number of Months of Data:", min = 1, max = 60, value = 12),
       numericInput("obs", "Last Number of Days to Show:", 5)
       
     ),
@@ -45,9 +46,10 @@ server <- function(input, output) {
     output$text2 <- renderText({paste("Currenty Showing: " , m)})
     a <- ""
     if(input$VOL){a <- paste0(a, "addVo()")}
-    if(input$SMA20){a <- paste0(a, if(a != "") {"; "}, "addSMA(n = 20, col = 'red')")} 
+    if(input$SMA50){a <- paste0(a, if(a != "") {"; "}, "addSMA(n = 50, col = 'red')")} 
     if(input$SMA200){a <- paste0(a, if(a != "") {"; "}, "addSMA(n = 200, col = 'blue')")} 
     if(input$BB){a <- paste0(a, if(a != "") {"; "}, "addBBands()")} 
+    if(input$MACD){a <- paste0(a, if(a != "") {"; "}, "addMACD()")} 
     if(a == ""){a <- list(NULL)}
     tryCatch({
       chartSeries(data, 
